@@ -1,20 +1,14 @@
-#ifndef LANPROTOCOLMESSAGE_H
-#define LANPROTOCOLMESSAGE_H
+#ifndef MESSAGE_H
+#define MESSAGE_H
 
 #include <inttypes.h>
 
-class LanProtocolMessage
+class Message
 {
 public:
-    LanProtocolMessage();
+    Message();
 
 private:
-    struct Message {
-        Frame           frame;
-        FrameAddress    frameAdderss;
-        ProtocolHeader  protocolHeader;
-        Payload         payload;
-    };
 
     // Header components            // Bits
     struct Frame {
@@ -36,10 +30,15 @@ private:
     };
 
     struct ProtocolHeader {
-        uint64_t    reserved;       // 64
+        uint64_t    reserved2;       // 64
         uint16_t    type;           // 16
-        uint16_t    reserved;       // 16
+        uint16_t    reserved3;       // 16
     };
+
+    Frame m_frame;
+    FrameAddress m_frameAddress;
+    ProtocolHeader m_ProtocolHeader;
+
 };
 
-#endif // LANPROTOCOLMESSAGE_H
+#endif // MESSAGE_H
