@@ -47,6 +47,9 @@ enum DeviceMessage {
     EchoResponse        = 59
 };
 
+// Data types
+typedef char label_t[32];
+
 // Device message payloads
 struct GetService : public Payload
 {
@@ -113,12 +116,12 @@ struct GetLabel : public Payload
 
 struct SetLabel : public Payload
 {
-    char       label[32];
+    label_t     label;
 };
 
 struct StateLabel : public Payload
 {
-    char       label[32];
+    label_t     label;
 };
 
 struct GetVersion : public Payload
@@ -154,7 +157,7 @@ struct GetLocation : public Payload
 struct StateLocation : public Payload
 {
     uint8_t     location[16];
-    char       label[32];
+    label_t     label;
     uint64_t    updated_at;
 };
 
@@ -165,7 +168,7 @@ struct GetGroup : public Payload
 struct StateGroup : public Payload
 {
     uint8_t     group[16];
-    char       label[32];
+    label_t     label;
     uint64_t    update_at;
 };
 
