@@ -48,7 +48,10 @@ enum DeviceMessage {
 };
 
 // Data types
-typedef char label_t[32];
+typedef char        label_t[32];
+typedef uint32_t    port_t;
+typedef uint16_t    level_t;
+typedef uint64_t    time_t;
 
 // Device message payloads
 struct GetService : public Payload
@@ -58,7 +61,7 @@ struct GetService : public Payload
 struct StateService : public Payload
 {
     uint8_t     service;
-    uint32_t    port;
+    port_t      port;
 };
 
 struct GetHostInfo : public Payload
@@ -102,12 +105,12 @@ struct GetPower : public Payload
 
 struct SetPower : public Payload
 {
-    uint16_t    level;
+    level_t     level;
 };
 
 struct StatePower : public Payload
 {
-    uint16_t    level;
+    level_t     level;
 };
 
 struct GetLabel : public Payload
@@ -141,7 +144,7 @@ struct GetInfo : public Payload
 
 struct StateInfo : public Payload
 {
-    uint64_t    time;
+    time_t      time;
     uint64_t    uptime;
     uint64_t    downtime;
 };
