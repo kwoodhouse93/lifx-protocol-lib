@@ -1,8 +1,16 @@
 #ifndef PAYLOAD_H
 #define PAYLOAD_H
 
-#include "inttypes.h"
-//#include "float.h"
+#include <inttypes.h>
+
+// Common payload components (currently empty)
+struct Payload
+{
+    virtual ~Payload() =0;
+};
+
+namespace DeviceMessage
+{
 
 // Enumerations
 enum Service {
@@ -39,12 +47,7 @@ enum DeviceMessage {
     EchoResponse        = 59
 };
 
-// Common payload components (currently empty)
-struct Payload
-{
-};
-
-// Individual message payloads
+// Device message payloads
 struct GetService : public Payload
 {
 };
@@ -175,5 +178,7 @@ struct EchoResponse : public Payload
 {
     uint8_t     payload[64];
 };
+
+} // namespace DeviceMessage
 
 #endif // PAYLOAD_H
