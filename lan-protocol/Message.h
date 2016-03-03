@@ -1,14 +1,36 @@
 #ifndef MESSAGE_H
 #define MESSAGE_H
 
+#include "Payload.h"
+
 #include <inttypes.h>
+#include <string>
 
 class Message
 {
 public:
     Message();
 
+    void SetFrame(bool tagged);
+    void SetFrameAddress(uint64_t target, bool ack_required, bool res_required);
+    void SetProtocolHeader(uint16_t type);
+    void SetPayload(const Payload& payload);
+
+    std::string Encode();
+
+    void Send();
+
 private:
+
+    // Known values for all messages
+    static const uint8_t    c_origin      =    0;
+    static const bool       c_addressable =    1;
+    static const uint16_t   c_protocol    = 1024;
+
+    // Assuming reserved values should all be set to 0.
+    // The value should be implicitly converted to the
+    // appropriate type when used to set a header value.
+    static const int        c_reserved    =    0;
 
     // Header components            // Bits
     struct Frame {
@@ -30,14 +52,15 @@ private:
     };
 
     struct ProtocolHeader {
-        uint64_t    reserved2;       // 64
+        uint64_t    reserved2;      // 64
         uint16_t    type;           // 16
-        uint16_t    reserved3;       // 16
+        uint16_t    reserved3;      // 16
     };
 
-    Frame m_frame;
-    FrameAddress m_frameAddress;
-    ProtocolHeader m_ProtocolHeader;
+    Frame           m_frame;
+    FrameAddress    m_frameAddress;
+    ProtocolHeader  m_protocolHeader;
+    Payload*        m_payload;
 
 };
 
