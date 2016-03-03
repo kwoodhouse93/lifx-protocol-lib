@@ -5,7 +5,7 @@
 
 #include <inttypes.h>
 
-namespace LightMessage
+namespace LightPayload
 {
 
 // Enumerations
@@ -27,10 +27,12 @@ struct HSBK
     uint16_t kelvin;
 };
 
+// Fields common to all light payloads (currently none).
 struct LightPayload : public Payload
 {
 };
 
+// Light message payloads
 struct Get : public LightPayload
 {
 };
@@ -66,6 +68,6 @@ struct StatePower : public LightPayload
     uint16_t    level;
 };
 
-} // namespace LightMessage
+} // namespace LightPayload
 
 #endif // LIGHTPAYLOAD_H
