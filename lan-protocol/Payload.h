@@ -21,7 +21,7 @@ namespace DevicePayload
 
 // Enumerations
 enum Service {
-    UDP                 = 1,
+    UDP = 1,
 };
 
 // Data types

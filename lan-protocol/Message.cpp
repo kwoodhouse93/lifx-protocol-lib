@@ -70,25 +70,11 @@ std::string Message::Encode()
     //TODO: Create string from structs
     std::stringstream message;
 
-    message << m_frame.size << "."
-            << m_frame.origin << "."
-            << m_frame.tagged << "."
-            << m_frame.addressable << "."
-            << m_frame.protocol << "."
-            << m_frame.source << "."
-
-            << m_frameAddress.target << "."
-            << m_frameAddress.reserved0 << "."
-            << m_frameAddress.reserved1 << "."
-            << m_frameAddress.ack_required << "."
-            << m_frameAddress.res_required << "."
-            << m_frameAddress.sequence << "."
-
-            << m_protocolHeader.reserved2 << "."
-            << m_protocolHeader.type << "."
-            << m_protocolHeader.reserved3 << "."
-
-            << *m_payload
+    message << "/"
+            << m_frame << "."
+            << m_frameAddress << "."
+            << m_protocolHeader << "."
+            << *m_payload << "/"
 
             << std::endl;
 
