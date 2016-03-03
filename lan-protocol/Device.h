@@ -38,8 +38,11 @@ public:
 
     Device();
 
+    // Find devices without needing access to a specific target
+    static void GetService (DevicePayload::GetService payload);
+    static Device& StateService();
+
     // Get messages
-    void GetService         (DevicePayload::GetService      payload);
     void GetHostInfo        (DevicePayload::GetHostInfo     payload);
     void GetHostFirmware    (DevicePayload::GetHostFirmware payload);
     void GetWifiInfo        (DevicePayload::GetWifiInfo     payload);
@@ -52,11 +55,10 @@ public:
     void GetGroup           (DevicePayload::GetGroup        payload);
 
     // Set messages
-    void SetPower           (DevicePayload::SetPower        payload);
-    void SetLabel           (DevicePayload::SetLabel        payload);
+    void SetPower (DevicePayload::SetPower payload);
+    void SetLabel (DevicePayload::SetLabel payload);
 
     // State messages
-    DevicePayload::StateService         StateService();
     DevicePayload::StateHostInfo        StateHostInfo();
     DevicePayload::StateHostFirmware    StateHostFirmware();
     DevicePayload::StateWifiInfo        StateWifiInfo();
@@ -69,11 +71,11 @@ public:
     DevicePayload::StateGroup           StateGroup();
 
     // Ack message
-    DevicePayload::Acknowledgement      Acknowledgement();
+    DevicePayload::Acknowledgement Acknowledgement();
 
     // Echo messages
-    void EchoRequest        (const DevicePayload::EchoRequest &payload);
-    DevicePayload::EchoResponse         EchoResponse();
+    void EchoRequest (const DevicePayload::EchoRequest &payload);
+    DevicePayload::EchoResponse EchoResponse();
 
 private:
     //TODO: Add type for representing device characteristics
