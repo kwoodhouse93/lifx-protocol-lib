@@ -75,7 +75,6 @@ std::string Message::Encode()
             << m_frameAddress << "."
             << m_protocolHeader << "."
             << *m_payload << "/"
-
             << std::endl;
 
     return message.str();

@@ -56,13 +56,6 @@ private:
                     | ( (uint64_t)frame.protocol    << 32)
                     | ( (uint64_t)frame.source);
             os << wrapper;
-//            os << std::bitset<64>(wrapper); << std::endl;
-//            os << std::bitset<16>(frame.size)       //<< "."
-//               << std::bitset<2>(frame.origin)      //<< "."
-//               << frame.tagged                      //<< "."
-//               << frame.addressable                 //<< "."
-//               << std::bitset<12>(frame.protocol)   //<< "."
-//               << std::bitset<32>(frame.source) << std::endl;
             return os;
         }
     };
