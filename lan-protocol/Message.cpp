@@ -2,6 +2,10 @@
 
 #include <algorithm>
 
+// For debugging purposes
+#include <iostream>
+#include <sstream>
+
 Message::Message()
 {
 
@@ -61,12 +65,34 @@ std::string Message::Encode()
  // Payload should already exist
 
     //TODO: Generate size
-
+    m_frame.size = 36 + sizeof(*m_payload);
 
     //TODO: Create string from structs
-    std::string message;
+    std::stringstream message;
 
-    return message;
+    message << m_frame.size << "."
+            << m_frame.origin << "."
+            << m_frame.tagged << "."
+            << m_frame.addressable << "."
+            << m_frame.protocol << "."
+            << m_frame.source << "."
+
+            << m_frameAddress.target << "."
+            << m_frameAddress.reserved0 << "."
+            << m_frameAddress.reserved1 << "."
+            << m_frameAddress.ack_required << "."
+            << m_frameAddress.res_required << "."
+            << m_frameAddress.sequence << "."
+
+            << m_protocolHeader.reserved2 << "."
+            << m_protocolHeader.type << "."
+            << m_protocolHeader.reserved3 << "."
+
+            << *m_payload
+
+            << std::endl;
+
+    return message.str();
 }
 
 void Message::Send()
@@ -74,4 +100,5 @@ void Message::Send()
     std::string message = Encode();
 
     // Send over network
+    std::cout << message;
 }

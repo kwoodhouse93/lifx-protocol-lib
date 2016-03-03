@@ -2,11 +2,18 @@
 #define PAYLOAD_H
 
 #include <inttypes.h>
+#include <ostream>
 
 // Common payload components (currently empty)
 struct Payload
 {
-    virtual ~Payload() =0;
+    virtual ~Payload(){};
+
+    friend std::ostream& operator<< (std::ostream& os, const Payload& payload)
+    {
+        (void)payload;
+        return os;
+    }
 };
 
 namespace DevicePayload
@@ -37,6 +44,13 @@ struct StateService : public DevicePayload
 {
     uint8_t     service;
     port_t      port;
+
+    friend std::ostream& operator<< (std::ostream& os, const StateService& payload)
+    {
+        os << payload.service << "."
+           << payload.port;
+        return os;
+    }
 };
 
 struct GetHostInfo : public DevicePayload
