@@ -19,11 +19,11 @@ public:
     void SetProtocolHeader(uint16_t type);
     void SetPayload(const Payload& payload);
 
-    std::string Encode();
-
-    void Send();
+    void Send(const DevicePayload::port_t& port);
+    void Receive();
 
 private:
+    std::string Encode();
 
     // Known values for all messages
     static const uint8_t    c_origin      =    0;
@@ -110,6 +110,16 @@ private:
     FrameAddress    m_frameAddress;
     ProtocolHeader  m_protocolHeader;
     Payload*        m_payload;
+
+
+    friend std::ostream& operator<< (std::ostream& os, const Message& message)
+    {
+        os << message.m_frame
+           << message.m_frameAddress
+           << message.m_protocolHeader
+           << message.m_payload;
+        return os;
+    }
 
 };
 

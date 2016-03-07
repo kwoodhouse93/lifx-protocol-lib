@@ -1,5 +1,8 @@
 #include "Message.h"
 
+#include "network/Network.h"
+#include "network/NetworkBoost.h"
+
 #include <algorithm>
 
 // For debugging purposes
@@ -80,10 +83,33 @@ std::string Message::Encode()
     return message.str();
 }
 
-void Message::Send()
+void Message::Send(const DevicePayload::port_t& port)
 {
+    std::cout << std::endl << "Entered Message::Send with port: " << port << std::endl
+              << "Ready to encode" << std::endl;
+
     std::string message = Encode();
 
+    std::cout << "Encoded message: " << message << std::endl;
+
     // Send over network
-    std::cout << message;
+    std::cout << "Constructing string from port number" << std::endl;
+    std::stringstream portStream;
+    portStream << port;
+    std::cout << "Port: " << port << ", String: " << portStream.str() <<std::endl;
+
+    std::cout << "Setting up network" << std::endl;
+    Network* network = new NetworkBoost("localhost", portStream.str());
+    std::cout << "Network: " << network << std::endl;
+
+    std::cout << "Ready to send" << std::endl;
+    network->Send(message);
+
+    delete network;
+}
+
+void Message::Receive()
+{
+    // Get from network
+
 }
