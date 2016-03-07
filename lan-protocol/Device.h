@@ -37,26 +37,28 @@ public:
     };
 
     Device();
+    Device(uint64_t targetMacAddress)
+         : m_target(targetMacAddress) {}
 
     // Find devices without needing access to a specific target
     static void GetService (DevicePayload::GetService payload);
     static Device& StateService();
 
     // Get messages
-    void GetHostInfo        (DevicePayload::GetHostInfo     payload);
-    void GetHostFirmware    (DevicePayload::GetHostFirmware payload);
-    void GetWifiInfo        (DevicePayload::GetWifiInfo     payload);
-    void GetWifiFirmware    (DevicePayload::GetWifiFirmware payload);
-    void GetPower           (DevicePayload::GetPower        payload);
-    void GetLabel           (DevicePayload::GetLabel        payload);
-    void GetVersion         (DevicePayload::GetVersion      payload);
-    void GetInfo            (DevicePayload::GetInfo         payload);
-    void GetLocation        (DevicePayload::GetLocation     payload);
-    void GetGroup           (DevicePayload::GetGroup        payload);
+    void GetHostInfo        (DevicePayload::GetHostInfo     payload, bool ack_required = 0);
+    void GetHostFirmware    (DevicePayload::GetHostFirmware payload, bool ack_required = 0);
+    void GetWifiInfo        (DevicePayload::GetWifiInfo     payload, bool ack_required = 0);
+    void GetWifiFirmware    (DevicePayload::GetWifiFirmware payload, bool ack_required = 0);
+    void GetPower           (DevicePayload::GetPower        payload, bool ack_required = 0);
+    void GetLabel           (DevicePayload::GetLabel        payload, bool ack_required = 0);
+    void GetVersion         (DevicePayload::GetVersion      payload, bool ack_required = 0);
+    void GetInfo            (DevicePayload::GetInfo         payload, bool ack_required = 0);
+    void GetLocation        (DevicePayload::GetLocation     payload, bool ack_required = 0);
+    void GetGroup           (DevicePayload::GetGroup        payload, bool ack_required = 0);
 
     // Set messages
-    void SetPower (DevicePayload::SetPower payload);
-    void SetLabel (DevicePayload::SetLabel payload);
+    void SetPower (DevicePayload::SetPower payload, bool ack_required = 0, bool res_required = 1);
+    void SetLabel (DevicePayload::SetLabel payload, bool ack_required = 0, bool res_required = 1);
 
     // State messages
     DevicePayload::StateHostInfo        StateHostInfo();
@@ -74,14 +76,13 @@ public:
     DevicePayload::Acknowledgement Acknowledgement();
 
     // Echo messages
-    void EchoRequest (const DevicePayload::EchoRequest &payload);
+    void EchoRequest (const DevicePayload::EchoRequest &payload, bool ack_required = 0);
     DevicePayload::EchoResponse EchoResponse();
 
 private:
     //TODO: Add type for representing device characteristics
+    DevicePayload::StateService m_stateService;
     uint64_t    m_target;
-    bool        m_ack_required;
-    bool        m_res_required;
 };
 
 #endif // DEVICE_H
