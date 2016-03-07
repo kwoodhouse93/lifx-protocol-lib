@@ -21,13 +21,18 @@ public:
         udp::resolver::query    query(udp::v4(), host, port);
         udp::resolver::iterator iter = resolver.resolve(query);
         m_endpoint = *iter;
+
+        Receive();
     }
 
     ~BoostUdp();
 
     void Send (const std::string& message);
+    std::string Receive();
 
 private:
+    static const int MaxLength = 512;
+
     boost::asio::io_service& m_ioservice;
     udp::socket     m_socket;
     udp::endpoint   m_endpoint;
