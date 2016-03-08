@@ -83,6 +83,16 @@ private:
     //TODO: Add type for representing device characteristics
     DevicePayload::StateService m_stateService;
     uint64_t    m_target;
+
+#define _DEBUG_
+#ifdef _DEBUG_
+public:
+    inline void SetStateService(uint8_t service, DevicePayload::port_t port)
+    {
+        m_stateService.service = service;
+        m_stateService.port = port;
+    }
+#endif
 };
 
 #endif // DEVICE_H
