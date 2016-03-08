@@ -31,6 +31,15 @@ void Device::GetService(DevicePayload::GetService payload)
     message.Send(port);
 }
 
+// This function might need handling differently as we don't just expect one response.
+// Maybe we need to define a response window with a timeout and accept all responses
+// within that window.  Those responses can then be used to define 'Device' objects in
+// a container, which can be used by applications/scripts to access particular devices.
+static Device& StateService()
+{
+
+}
+
 void Device::EchoRequest(const DevicePayload::EchoRequest& payload, bool ack_required)
 {
     Message message;
