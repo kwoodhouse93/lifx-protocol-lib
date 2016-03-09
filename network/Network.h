@@ -14,7 +14,9 @@ public:
           : m_host (host),
             m_port (port)
     {
+#ifdef _DEBUG_
         std::cout << "Constructing Network" << std::endl;
+#endif
         m_host = host;
         m_port = port;
     }

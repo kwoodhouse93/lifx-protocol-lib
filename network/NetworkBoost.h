@@ -16,7 +16,9 @@ public:
     NetworkBoost(const std::string& host, const std::string& port)
               : Network(host, port)
     {
-        std::cout << "Constructing NetworkBoost";
+#ifdef _DEBUG_
+        std::cout << "Constructing NetworkBoost" << std::endl;
+#endif
 
         m_ios = new boost::asio::io_service();
         m_boostUdp = new BoostUdp(*m_ios, m_host, m_port);
