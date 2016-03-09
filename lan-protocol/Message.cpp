@@ -4,7 +4,7 @@
 #include "network/NetworkBoost.h"
 
 #include <algorithm>
-#include <boost/shared_ptr.hpp>
+#include <boost/scoped_ptr.hpp>
 
 // For debugging purposes
 #include <iostream>
@@ -107,7 +107,7 @@ void Message::Send(const DevicePayload::port_t& port)
     std::cout << "Setting up network" << std::endl;
 #endif
 
-    boost::shared_ptr<Network> network(new NetworkBoost("localhost", portStream.str()));
+    boost::scoped_ptr<Network> network(new NetworkBoost("localhost", portStream.str()));
 
 #ifdef _DEBUG_
     std::cout << "Network: " << network << std::endl;
