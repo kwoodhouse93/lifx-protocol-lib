@@ -4,6 +4,7 @@
 #include "network/NetworkBoost.h"
 
 #include <algorithm>
+#include <boost/shared_ptr.hpp>
 
 // For debugging purposes
 #include <iostream>
@@ -85,27 +86,34 @@ std::string Message::Encode()
 
 void Message::Send(const DevicePayload::port_t& port)
 {
+#ifdef _DEBUG_
     std::cout << std::endl << "Entered Message::Send with port: " << port << std::endl
               << "Ready to encode" << std::endl;
+#endif
 
     std::string message = Encode();
 
+#ifdef _DEBUG_
     std::cout << "Encoded message: " << message << std::endl;
 
-    // Send over network
     std::cout << "Constructing string from port number" << std::endl;
+#endif
+
     std::stringstream portStream;
     portStream << port;
+
+#ifdef _DEBUG_
     std::cout << "Port: " << port << ", String: " << portStream.str() <<std::endl;
-
     std::cout << "Setting up network" << std::endl;
-    Network* network = new NetworkBoost("localhost", portStream.str());
+#endif
+
+    boost::shared_ptr<Network> network(new NetworkBoost("localhost", portStream.str()));
+
+#ifdef _DEBUG_
     std::cout << "Network: " << network << std::endl;
-
     std::cout << "Ready to send" << std::endl;
+#endif
     network->Send(message);
-
-    delete network;
 }
 
 void Message::Receive()
