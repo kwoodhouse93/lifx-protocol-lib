@@ -41,24 +41,24 @@ public:
          : m_target(targetMacAddress) {}
 
     // Find devices without needing access to a specific target
-    static void GetService (DevicePayload::GetService payload);
+    static void GetService (const DevicePayload::GetService& payload);
     static Device& StateService();
 
     // Get messages
-    void GetHostInfo        (DevicePayload::GetHostInfo     payload, bool ack_required = 0);
-    void GetHostFirmware    (DevicePayload::GetHostFirmware payload, bool ack_required = 0);
-    void GetWifiInfo        (DevicePayload::GetWifiInfo     payload, bool ack_required = 0);
-    void GetWifiFirmware    (DevicePayload::GetWifiFirmware payload, bool ack_required = 0);
-    void GetPower           (DevicePayload::GetPower        payload, bool ack_required = 0);
-    void GetLabel           (DevicePayload::GetLabel        payload, bool ack_required = 0);
-    void GetVersion         (DevicePayload::GetVersion      payload, bool ack_required = 0);
-    void GetInfo            (DevicePayload::GetInfo         payload, bool ack_required = 0);
-    void GetLocation        (DevicePayload::GetLocation     payload, bool ack_required = 0);
-    void GetGroup           (DevicePayload::GetGroup        payload, bool ack_required = 0);
+    void GetHostInfo        (const DevicePayload::GetHostInfo&     payload, bool ack_required = 0);
+    void GetHostFirmware    (const DevicePayload::GetHostFirmware& payload, bool ack_required = 0);
+    void GetWifiInfo        (const DevicePayload::GetWifiInfo&     payload, bool ack_required = 0);
+    void GetWifiFirmware    (const DevicePayload::GetWifiFirmware& payload, bool ack_required = 0);
+    void GetPower           (const DevicePayload::GetPower&        payload, bool ack_required = 0);
+    void GetLabel           (const DevicePayload::GetLabel&        payload, bool ack_required = 0);
+    void GetVersion         (const DevicePayload::GetVersion&      payload, bool ack_required = 0);
+    void GetInfo            (const DevicePayload::GetInfo&         payload, bool ack_required = 0);
+    void GetLocation        (const DevicePayload::GetLocation&     payload, bool ack_required = 0);
+    void GetGroup           (const DevicePayload::GetGroup&        payload, bool ack_required = 0);
 
     // Set messages
-    void SetPower (DevicePayload::SetPower payload, bool ack_required = 0, bool res_required = 1);
-    void SetLabel (DevicePayload::SetLabel payload, bool ack_required = 0, bool res_required = 1);
+    void SetPower (const DevicePayload::SetPower& payload, bool ack_required = 0, bool res_required = 1);
+    void SetLabel (const DevicePayload::SetLabel& payload, bool ack_required = 0, bool res_required = 1);
 
     // State messages
     DevicePayload::StateHostInfo        StateHostInfo();
@@ -84,7 +84,6 @@ private:
     DevicePayload::StateService m_stateService;
     uint64_t    m_target;
 
-#define _DEBUG_
 #ifdef _DEBUG_
 public:
     inline void SetStateService(uint8_t service, DevicePayload::port_t port)
