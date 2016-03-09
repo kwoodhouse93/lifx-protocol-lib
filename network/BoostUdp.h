@@ -15,7 +15,7 @@ public:
             const std::string& host,
             const std::string& port)
           : m_ioservice (ioservice),
-            m_socket    (ioservice, udp::endpoint(udp::v4(), 0))
+            m_socket    (udp::socket(ioservice, udp::endpoint(udp::v4(), 0)))
     {
         udp::resolver           resolver(m_ioservice);
         udp::resolver::query    query(udp::v4(), host, port);
