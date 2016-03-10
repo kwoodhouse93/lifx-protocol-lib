@@ -3,9 +3,16 @@
 
 #include "Payload.h"
 
+#include <boost/ptr_container/ptr_vector.hpp>
+
 class Device
 {
 public:
+    enum DeviceType {
+        device,
+        light
+    };
+
     enum DeviceMessage {
         getService          = 2,
         gtateService        = 3,
@@ -42,7 +49,7 @@ public:
 
     // Find devices without needing access to a specific target
     static void GetService (const DevicePayload::GetService& payload);
-    static Device& StateService();
+    static int StateService(boost::ptr_vector<Device>& deviceList, const int& timeout);
 
     // Get messages
     void GetHostInfo        (const DevicePayload::GetHostInfo&     payload, bool ack_required = 0);
@@ -80,9 +87,9 @@ public:
     DevicePayload::EchoResponse EchoResponse();
 
 private:
-    //TODO: Add type for representing device characteristics
-    DevicePayload::StateService m_stateService;
+    DeviceType  m_type = device;
     uint64_t    m_target;
+    DevicePayload::StateService m_stateService;
 
 #ifdef _DEBUG_
 public:
