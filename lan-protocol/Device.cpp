@@ -42,8 +42,9 @@ void Device::GetService(const DevicePayload::GetService& payload)
 // a container, which can be used by applications/scripts to access particular devices.
 int Device::StateService(boost::ptr_vector<Device>& deviceList, const int& timeout)
 {
+    (void)timeout;
     deviceList.clear();
-    // m_deviceList.push_back(std::auto_ptr<Device>(new Device));
+    // deviceList.push_back(std::auto_ptr<Device>(new Device));
     return deviceList.size();
 }
 
